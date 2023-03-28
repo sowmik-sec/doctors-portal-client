@@ -7,9 +7,13 @@ const Testimony = ({ tes }) => {
       <div className="mb-8">
         <p>{testimony}</p>
       </div>
-      <div className="flex">
-        <img src={img} alt="" className="rounded-full h-16" />
-        <div>
+      <div className="flex items-center">
+        <div className="avatar">
+          <div className="h-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+            <img src={img} alt="" />
+          </div>
+        </div>
+        <div className="ml-3">
           <h3>{name}</h3>
           <p>{location}</p>
         </div>
