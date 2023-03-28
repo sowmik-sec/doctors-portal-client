@@ -1,5 +1,6 @@
 import React from "react";
 import treatment from "../../../assets/images/treatment.png";
+import PrimaryButton from "../../../components/PrimaryButton/PrimaryButton";
 
 const DentalCare = () => {
   return (
@@ -24,7 +25,7 @@ const DentalCare = () => {
               publishing packages and web page
             </small>
           </p>
-          <button className="btn btn-primary">Get Started</button>
+          <PrimaryButton>GET STARTED</PrimaryButton>
         </div>
       </div>
     </div>
