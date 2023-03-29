@@ -5,6 +5,7 @@ import {
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 
 const auth = getAuth(app);
@@ -24,7 +25,10 @@ const AuthProvider = ({ children }) => {
     });
     return () => unSubscribe;
   }, []);
-  const authInfo = { createUser, signIn, user };
+  const logout = () => {
+    return signOut(auth);
+  };
+  const authInfo = { createUser, signIn, user, logout };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
