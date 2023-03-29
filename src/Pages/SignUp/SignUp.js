@@ -6,7 +6,7 @@ import { AuthContext } from "../../contexts/AuthProvider";
 
 const SignUp = () => {
   const [signUpError, setSignUpError] = useState();
-  const { createUser, updateUser } = useContext(AuthContext);
+  const { createUser, googleSignIn, updateUser } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -27,6 +27,14 @@ const SignUp = () => {
         toast("User Created Successfully");
       })
       .catch((err) => setSignUpError(err.message));
+  };
+  const handleGoogleSignUp = () => {
+    googleSignIn()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((err) => console.error(err));
   };
   return (
     <div className="h-[800px] flex justify-center items-center">
@@ -94,7 +102,9 @@ const SignUp = () => {
           </Link>
         </p>
         <div className="divider">OR</div>
-        <button className="btn btn-outline w-full">CONTINUE WITH GOOGLE</button>
+        <button onClick={handleGoogleSignUp} className="btn btn-outline w-full">
+          CONTINUE WITH GOOGLE
+        </button>
       </div>
     </div>
   );
