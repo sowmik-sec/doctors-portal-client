@@ -30,12 +30,12 @@ const MyAppointment = () => {
           </thead>
           <tbody>
             {bookings.map((booking, index) => (
-              <tr>
+              <tr key={index}>
                 <th>{index + 1}</th>
-                <td>Cy Ganderton</td>
-                <td>Quality Control Specialist</td>
-                <td>Blue</td>
-                <td>Blue</td>
+                <td>{booking.patient}</td>
+                <td>{booking.treatment}</td>
+                <td>{booking.appointmentDate}</td>
+                <td>{booking.slot}</td>
               </tr>
             ))}
           </tbody>
