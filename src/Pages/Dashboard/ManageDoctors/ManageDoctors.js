@@ -32,22 +32,19 @@ const ManageDoctors = () => {
   }
   const handleDeleteDoctor = (doctor) => {
     const id = doctor._id;
-    const confirm = window.confirm("Do you want to delete this doctor?");
-    if (confirm) {
-      fetch(`http://localhost:5000/doctors/${id}`, {
-        method: "DELETE",
-        headers: {
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.acknowledged) {
-            toast.success("Doctor deleted successfully");
-            refetch();
-          }
-        });
-    }
+    fetch(`http://localhost:5000/doctors/${id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.success(`Doctor ${doctor.name} deleted successfully`);
+          refetch();
+        }
+      });
   };
   return (
     <div>
@@ -96,6 +93,7 @@ const ManageDoctors = () => {
           title={`Are you sure you want to delete ${deletingDoctor.name}?`}
           message={`If you delete ${deletingDoctor.name}, it can't be undone`}
           successAction={handleDeleteDoctor}
+          successButtonName="Delete"
           modalData={deletingDoctor}
           closeModal={closeModal}
         />
