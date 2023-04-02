@@ -1,9 +1,14 @@
 import React from "react";
 import { useQuery } from "react-query";
 import Loading from "../../Shared/Loading/Loading";
+import { toast } from "react-hot-toast";
 
 const ManageDoctors = () => {
-  const { data: doctors, isLoading } = useQuery({
+  const {
+    data: doctors,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["doctors"],
     queryFn: async () => {
       try {
@@ -20,6 +25,21 @@ const ManageDoctors = () => {
   if (isLoading) {
     return <Loading />;
   }
+  const handleDeleteDoctor = (id) => {
+    const confirm = window.confirm("Do you want to delete this doctor?");
+    if (confirm) {
+      fetch(`http://localhost:5000/doctors/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.acknowledged) {
+            toast.success("Doctor deleted successfully");
+            refetch();
+          }
+        });
+    }
+  };
   return (
     <div>
       <h2 className="text-3xl">Manage Doctors: {doctors?.length}</h2>
@@ -49,7 +69,12 @@ const ManageDoctors = () => {
                   <td>{doctor.name}</td>
                   <td>{doctor.specialty}</td>
                   <td>
-                    <button className="btn btn-sm btn-error">Delete</button>
+                    <button
+                      onClick={() => handleDeleteDoctor(doctor._id)}
+                      className="btn btn-sm btn-error"
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
