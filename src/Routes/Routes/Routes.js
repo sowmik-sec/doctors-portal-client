@@ -77,11 +77,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "payment/:id",
-        element: (
-          <AdminRoute>
-            <Payment />
-          </AdminRoute>
-        ),
+        element: <Payment />,
         loader: ({ params }) =>
           fetch(
             `https://doctors-portal-server-sandy-delta.vercel.app/bookings/${params.id}`
